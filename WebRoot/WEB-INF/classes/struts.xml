@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Struts2配置文件的DTD信息 -->
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- Struts2配置文件的根元素 -->
+
+<struts>
+	<!-- 配置了系列常量 -->
+    <constant name="struts.multipart.maxSize" value="40000000"/>
+    <constant name="struts.custom.i18n.reources" value="mess"/>
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.devMode" value="false"/>
+    <package name="default" extends="struts-default,json-default">
+        <interceptors>
+            <interceptor name="authority" class="com.interceptor.LoginInterceptor"></interceptor>
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="authority"></interceptor-ref>
+               <!--配置内建默认拦截器-->  
+                <interceptor-ref name="defaultStack"/>  
+            </interceptor-stack>
+        </interceptors>
+        
+       <!-- <default-interceptor-ref name="mydefault"></default-interceptor-ref> -->
+
+        <global-results>
+            <result name="login" >index.jsp</result>
+            <result name="error">error.jsp</result>
+            <result name="exception-error">error.jsp</result>
+        </global-results>
+<!--         <global-exception-mappings>
+            <exception-mapping result="exception-error" exception="java.lang.Exception"></exception-mapping>
+            <exception-mapping result="exception-error" exception="java.io.IOException"></exception-mapping>
+        </global-exception-mappings> -->
+        <!-- 文件上传 -->
+        <action name="upload" class="com.action.UploadAction" >
+            <interceptor-ref name="fileUpload">
+                <param name="allowedTypes">
+		application/msword 
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <param name="path">/upload</param>
+            <result name="input">/TaskManage/handInTask.jsp</result>
+            <result name="success">/TaskManage/handInTask.jsp</result>
+        </action>
+           
+            <!-- 学生首页action-->
+        <action name="index" class="com.action.IndexAction" >
+            <result name="success">main.jsp</result>
+            <result name="notIn">main.jsp</result>
+            <result name="signok" type="redirectAction">index.action</result>
+            <result name="signed">main.jsp</result>
+            <result name="ipSame">main.jsp</result>
+        </action>
+            <!-- 教师首页action-->
+	        <action name="tindex" class="com.action.TeacherIndexAction" >
+            <result name="success">tIndex.jsp</result>
+           <!--  <result name="signs">SignList.jsp</result> -->
+			<result name="draw">report.jsp</result>
+        </action>
+            
+            <!-- 学生信息导入 -->
+        <action name="importStu" class="com.action.ImportStuInfoAction" >
+            <result name="success">/SystemConfig/ImportStudentInfo.jsp</result>
+            <result name="importSuccess" type="redirectAction"> 
+                <param name="actionName">importStu!prepareImport</param>
+                <param name="namespace">/</param>
+                <param name="result">${msg}</param>
+            </result>
+            <result name="input">/SystemConfig/ImportStudentInfo.jsp</result>
+        </action>
+                <!-- 教师信息导入 -->
+        <action name="importTeacher" class="com.action.ImportTeacherAction" >
+            <result name="success">/SystemConfig/ImportTeacherInfo.jsp</result>
+            <result name="importSuccess" type="redirectAction"> 
+                <param name="actionName">importTeacher</param>
+                <param name="namespace">/</param>
+                <param name="result">${msg}</param>
+            </result>
+            <result name="input">/SystemConfig/ImportTeacherInfo.jsp</result>
+        </action>        
+            <!-- 学生信息管理 -->
+        <action name="stu" class="com.action.StudentInfoAction" >
+            <result name="success">/StudentManage/StuMain.jsp</result>
+            <result name="allSuccess">/StudentManage/AllStudents.jsp</result>
+            <result name="modify">/StudentManage/modifyPsw.jsp</result>
+            <result name="sInfo">/StudentManage/info.jsp</result>
+        </action>
+                    <!-- 教师信息管理 -->
+        <action name="teacherinfo" class="com.action.TeacherInfoAction" >
+            <result name="success">/TeacherManage/showAllTeacher.jsp</result>
+            <result name="modify">/StudentManage/modifyPsw.jsp</result>
+            <result name="tqx" type="redirectAction">teacherinfo.action</result>
+        </action>    
+            <!-- 时间设置管理 -->
+        <action name="timeManage" class="com.action.SignSettingeAction" >
+            <result name="success">/KaoQinManage/SetKaoQinPrinciple.jsp</result>
+            <result name="prepareView">/KaoQinManage/AllPrinceiple.jsp</result>
+            <result name="preparModify">/KaoQinManage/ModifySignSetting.jsp</result>
+            <result name="invalid" type="redirectAction">timeManage!invalidSign.action?signid=%{signid}</result>
+            <result name="delete" type="redirectAction">timeManage!deleteSign.action?signid=%{signid}</result>
+        </action>
+        <!-- 签到记录管理 -->
+        <action name="signrecordManage" class="com.action.SignRecordAction">
+            <result name="success">/KaoQinManage/SignHistory.jsp</result>
+        
+        </action>    
+            <!-- 课程管理 -->
+        <action name="courseManage" class="com.action.CourseAction" >
+            <result name="success">/CourseManage/allCourse.jsp</result>
+            <result name="prepareAdd">/CourseManage/addCourse.jsp</result>
+            <result name="input">/CourseManage/addCourse.jsp</result>
+            <result name="prepareModify">/CourseManage/modifyCourse.jsp</result>
+            <result name="delSuccess" type="redirectAction">courseManage.action</result>
+        </action>
+            
+            <!-- 班级管理 -->
+        <action name="classManage" class="com.action.TClassAction" >
+            <result name="success">/ClassManage/allClasses.jsp</result>
+            <result name="prepareAdd">/ClassManage/addClass.jsp</result>
+            <result name="addSuccess">/ClassManage/addClass.jsp</result>
+            <result name="prepareModify">/ClassManage/modifyClass.jsp</result>
+            <result name="input">/ClassManage/addClass.jsp</result>
+            <result name="delSuccess" type="redirectAction">classManage.action</result>
+        </action>
+           <!-- 学生成绩管理 -->
+        <action name="scoreManage" class="com.action.ScoreAction" >
+            <result name="success">/ScoreManage/all.jsp</result>
+            <result name="unstatic">/ScoreManage/all.jsp</result>
+            <result name="taskStatic">/ScoreManage/taskScore.jsp</result>
+            <result name="scoreView">/ScoreManage/totalScore.jsp</result>
+        </action>
+        <!-- 作业管理 -->
+        <action name="taskManage" class="com.action.TaskAction">
+            <result name="success">/TaskManage/allTask.jsp</result>
+            <result name="prepareAdd">/TaskManage/addTask.jsp</result>
+            <result name="view">/TaskManage/viewTask.jsp</result>
+            <result name="prepareHandIn">/TaskManage/handInTask.jsp</result>
+            <result name="stuAllTask">/TaskManage/stuAllTask.jsp</result>
+            <result name="viewTaskrecord">/TaskManage/examTask.jsp</result>
+            <result name="allTaskrecords">/TaskManage/studentTaskRecord.jsp</result>
+        </action>
+        <!-- 在线看Office -->
+          <action name="ViewOnline" class="com.action.ViewOnlineAction">
+            <result name="success" type="dispatcher">readFile.jsp</result>
+            <result name="error">readFile.jsp</result>
+        </action> 
+    </package>
+    
+    <package name="login" extends = "struts-default">
+         <!-- 登陆action -->
+        <action name="login" class="com.action.LoginAction" >
+            <result name="success" type="redirectAction">index</result>
+            <result name="tloginSuccess" type="redirectAction">tindex</result>
+            <result name="input">index.jsp</result>
+        </action>
+    </package>
+</struts>

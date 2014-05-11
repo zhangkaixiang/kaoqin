@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-5 8:11:52 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.orm.Taskrecord" table="taskrecord" catalog="kaoqin" lazy="false">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="student" class="com.orm.Student" fetch="select">
+            <column name="stuid" />
+        </many-to-one>
+        <many-to-one name="task" class="com.orm.Task" fetch="select">
+            <column name="taskid" />
+        </many-to-one>
+        <many-to-one name="course" class="com.orm.Course" fetch="select">
+            <column name="courseid" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="50" />
+        </property>
+        <property name="path" type="string">
+            <column name="path" />
+        </property>
+        <property name="remark" type="string">
+            <column name="remark" />
+        </property>
+        <property name="uptime" type="string">
+            <column name="uptime" length="50" />
+        </property>
+         <property name="correct" type="java.lang.Boolean">
+            <column name="correct"  />
+        </property>
+    </class>
+</hibernate-mapping>

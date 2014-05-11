@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+        <excludes>  
+            <pattern>/login*.action</pattern>
+             <pattern>/error.jsp</pattern>
+            <pattern>/index.jsp</pattern>
+             <pattern>/report*.action</pattern>
+            <pattern>/report.jsp*</pattern>
+             <pattern>/SignList.jsp*</pattern>
+             <pattern>/ViewOnline.action*</pattern>
+             <pattern>/flexpaper/readFile.jsp*</pattern>
+        </excludes>  
+	<decorator name="myDecorator" page="myDecorator.jsp">
+            <pattern>*</pattern>
+	</decorator>
+</decorators>

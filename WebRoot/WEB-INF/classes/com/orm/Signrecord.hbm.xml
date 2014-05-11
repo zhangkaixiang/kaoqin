@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-5 8:11:52 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.orm.Signrecord" table="signrecord" catalog="kaoqin" lazy="false">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="student" class="com.orm.Student" fetch="select">
+            <column name="stuid" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sign" class="com.orm.Sign" fetch="select">
+            <column name="signid" not-null="true" />
+        </many-to-one>
+        <property name="ip" type="string">
+            <column name="ip" length="30" />
+        </property>
+        <property name="signdate" type="string">
+            <column name="signdate" length="50" />
+        </property>
+        <property name="signTime" type="timestamp">
+            <column name="signTime" length="19" />
+        </property>
+        <property name="lost" type="java.lang.Boolean">
+            <column name="lost" />
+        </property>
+    </class>
+</hibernate-mapping>

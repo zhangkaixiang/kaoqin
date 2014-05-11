@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2012-3-5 8:11:52 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.orm.TClass" table="t_class" catalog="kaoqin" lazy="false">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="className" type="string">
+            <column name="className" length="50" />
+        </property>
+        <property name="stuNum" type="java.lang.Integer">
+            <column name="stuNum" />
+        </property>
+        <property name="rxnf" type="java.lang.Integer">
+            <column name="rxnf" />
+        </property>
+        <set name="signs" inverse="true">
+            <key>
+                <column name="classid" />
+            </key>
+            <one-to-many class="com.orm.Sign" />
+        </set>
+        <set name="courses" inverse="true">
+            <key>
+                <column name="classid" not-null="true" />
+            </key>
+            <one-to-many class="com.orm.Course" />
+        </set>
+        <set name="students" inverse="true" order-by="id asc">
+            <key>
+                <column name="cid" not-null="true" />
+            </key>
+            <one-to-many class="com.orm.Student" />
+        </set>
+    </class>
+</hibernate-mapping>
