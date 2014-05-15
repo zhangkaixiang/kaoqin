@@ -22,10 +22,6 @@ import org.apache.struts2.ServletActionContext;
 
 public class SignSettingeAction extends ActionSupport {
     //引入服务层服务
-
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	SignSettingService signSettingService = new SignSettingServiceImpl();
     TClassService classService = new TClassServiceImpl();
@@ -46,16 +42,7 @@ public class SignSettingeAction extends ActionSupport {
     private List<Sign> allDateSigns;
     //修改的当前sign
     private Sign curSign;
-    //提示信息
-    private String tip;
 
-    public String getTip() {
-        return tip;
-    }
-
-    public void setTip(String tip) {
-        this.tip = tip;
-    }
 
     public int getType() {
         return type;
@@ -291,9 +278,10 @@ public class SignSettingeAction extends ActionSupport {
         @SuppressWarnings("rawtypes")
 		Iterator it = me.getCourses().iterator();
         while (it.hasNext()) {
-            Course course = (Course) it.next();
+        	Course course = (Course) it.next();  
             weekSigns.addAll(signSettingService.allSignsOnlyByWeek(course.getId()));
             customDateSigns.addAll(signSettingService.allSignsOnlyByDate(course.getId()));
+  
         }
 
 
@@ -500,7 +488,7 @@ public class SignSettingeAction extends ActionSupport {
         Sign s = signSettingService.load(sid);
         if (s != null) {
             signSettingService.invalidSign(s);
-            addActionMessage("操作成功，该记录已失效！由于该规则已包含签到记录，无法删除，您可以再失效记录里查看。");
+            addActionMessage("操作成功，该记录已失效！");
             return "prepareView";
         }
         return ERROR;

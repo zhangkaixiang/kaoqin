@@ -6,14 +6,18 @@ import com.orm.Course;
 import com.orm.Student;
 import com.orm.Task;
 import com.orm.Taskrecord;
+import com.orm.Teacher;
 import com.service.CourseService;
 import com.service.CourseServiceImpl;
+import com.service.NoticeServiceImpl;
 import com.service.StudentService;
 import com.service.StudentServiceImpl;
 import com.service.TaskService;
 import com.service.TaskServiceImpl;
 import com.service.TaskrecordService;
 import com.service.TaskrecordServiceImpl;
+import com.service.TeacherServiceImpl;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,8 +45,17 @@ public class UploadAction extends ActionSupport {
     private String path;
     private String name;
     private String remark;
+    private String msg;
     
-    public String getName() {
+    public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public String getName() {
         return name;
     }
     
@@ -92,19 +105,26 @@ public class UploadAction extends ActionSupport {
     
     @Override
     public String execute() throws Exception {
-        
-        int tskid = 0;
-        int courseid = 0;
-        
+    	String prefix=docFileName.substring(docFileName.lastIndexOf(".")+1);
+     if(prefix.equals("doc")||prefix.equals("docx")||prefix.equals("xls")||prefix.equals("ppt")||prefix.equals("xlsx")||prefix.equals("pptx")||prefix.equals("pdf")){ 
+    	int tskid = 0;
+        int courseid = 0;     
         docFileName = getFileName(docFileName);
         FileOutputStream fos = new FileOutputStream(getPath() + "\\" + docFileName);
         FileInputStream fis = new FileInputStream(doc);
-
 
         //将路径写入数据库
         //如果该学生上传的作业已经存在，这次将重新上传。
         if (ServletActionContext.getRequest().getParameter("taskid") != null) {
             tskid = Integer.parseInt(ServletActionContext.getRequest().getParameter("taskid"));
+            TaskServiceImpl taskservice=new TaskServiceImpl();
+            int teacherid=taskservice.getTeacherid(tskid);
+            TeacherServiceImpl teacherservice=new TeacherServiceImpl();
+            Teacher teacher=teacherservice.loadTeacher(teacherid);
+            System.out.println(teacherid);
+        	NoticeServiceImpl no=new NoticeServiceImpl();
+        	int noticeid=no.loadid(teacher.getId());
+        	no.saveMsg(noticeid, teacher);
         }
         if (ServletActionContext.getRequest().getParameter("courseid") != null) {
             courseid = Integer.parseInt(ServletActionContext.getRequest().getParameter("courseid"));
@@ -136,14 +156,18 @@ public class UploadAction extends ActionSupport {
                 while ((length = fis.read(b)) > 0) {
                     fos.write(b, 0, length);
                 }
-                addActionMessage("上传成功！");
+                this.setMsg("上传成功！");
                 return SUCCESS;
             } else {
-                addActionMessage("上传成功！您之前上传的作业已经被覆盖！");
+                this.setMsg("上传成功！您之前上传的作业已经被覆盖！");
                 return SUCCESS;
             }
         }
-        return ERROR;
+        }else{
+        	this.setMsg("您上传的文件类型不符合要求！");
+        	return INPUT;
+        }
+        return INPUT;
     }
     
     private String getFileName(String fileName) {

@@ -5,17 +5,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>课程管理</title>
+
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/font.css" />
         <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+                <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
         <style type="text/css">
             td{ text-align: center; width: 150px; font-size: 12px;}
         </style>
         <script type="text/javascript">
+        $(document).ready(function() {
+    		var text = document.getElementById("showmsg").innerHTML;
+    		if (text == null || text == "") {
+
+    		} else {
+    			layer.alert(text, 1);
+    		}
+        });
              function confrimDel()
-             {
-                 if (confirm("您确认要删除吗？这样可能会影响相关联的记录")) {
-                    return true;
-                } 
+             {if (confirm("您确认要删除吗？\n如果该规则已经包含了签到记录，则会自动成为失效规则\n如果没有包含签到记录，则会完全删除！！")) {
+                 return true;
+             }else
                 return false;
              }
         </script>
@@ -43,6 +53,6 @@
             </table>
 
         </div>
-        <s:actionmessage/>
+        <div id="showmsg" style="height:15px;color:white;">${msg}</div>
     </body>
 </html>

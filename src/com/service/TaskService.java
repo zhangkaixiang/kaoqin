@@ -16,4 +16,6 @@ public interface TaskService
     
    //加载某个任务
     public Task load(int taskid);
+    
+    public int getTeacherid(int taskid);
 }

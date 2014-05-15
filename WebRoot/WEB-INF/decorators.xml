@@ -9,6 +9,7 @@
              <pattern>/SignList.jsp*</pattern>
              <pattern>/ViewOnline.action*</pattern>
              <pattern>/flexpaper/readFile.jsp*</pattern>
+              <pattern>/readnotice*.action</pattern>
         </excludes>  
 	<decorator name="myDecorator" page="myDecorator.jsp">
             <pattern>*</pattern>

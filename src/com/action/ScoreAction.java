@@ -22,8 +22,17 @@ public class ScoreAction extends ActionSupport {
     private int courseid;
     private List<Score> allScores;
     private List<ScoreView> scoreViews;
+private String msg;
 
-    public List<ScoreView> getScoreViews() {
+    public String getMsg() {
+	return msg;
+}
+
+public void setMsg(String msg) {
+	this.msg = msg;
+}
+
+	public List<ScoreView> getScoreViews() {
         return scoreViews;
     }
 
@@ -72,7 +81,7 @@ public class ScoreAction extends ActionSupport {
 
     public String staticScore() throws Exception {
         if (scoreService.staticAttendScore(getClassid(), getCourseid())) {
-            addActionMessage("统计学生成绩成功！您可以点击查看来查看该课程的学生成绩。");
+            this.setMsg("统计学生成绩成功！您可以点击查看来查看该课程的学生成绩。");
             return SUCCESS;
         }else
         return ERROR;
@@ -81,7 +90,7 @@ public class ScoreAction extends ActionSupport {
 
     public String staticTaskScore() throws Exception {
         if (scoreService.staticTaskrecordScore(getClassid(), getCourseid())) {
-            addActionMessage("统计学生成绩成功！您可以点击查看来查看该课程的学生成绩。");
+        	   this.setMsg("统计学生成绩成功！您可以点击查看来查看该课程的学生成绩。");
             return "taskStatic";
         }else
         return ERROR;
@@ -92,7 +101,7 @@ public class ScoreAction extends ActionSupport {
         List<Score> results = new ArrayList<Score>();
         results = scoreService.allStudentsAttendScore(getClassid(), getCourseid());
         if (results.isEmpty()) {
-            addActionMessage("还未统计该课程成绩");
+        	   this.setMsg("还未统计该课程成绩");
             return "unstatic";
         }
         setAllScores(results);
@@ -103,7 +112,7 @@ public class ScoreAction extends ActionSupport {
         List<Score> results = new ArrayList<Score>();
         results = scoreService.allStudentsAttendScore(getClassid(), getCourseid());
         if (results.isEmpty()) {
-            addActionMessage("还未统计该课程成绩");
+        	   this.setMsg("还未统计该课程成绩");
             return "unstatic";
         }
         setAllScores(results);
@@ -118,12 +127,12 @@ public class ScoreAction extends ActionSupport {
     public String staticAllScore() {
         try{
         if ( scoreService.staticTaskrecordScore(classid, courseid) ) {
-            addActionMessage(" 统计成功！");
+        	   this.setMsg(" 统计成功！");
             return "scoreView";
         }}catch(Exception e){
             e.printStackTrace();
         }
-        addActionMessage("统计失败！请联系管理员！");
+        this.setMsg("统计失败！请联系管理员！");
         return "scoreView";
 
 
@@ -138,7 +147,7 @@ public class ScoreAction extends ActionSupport {
             setScoreViews(scoreService.allScoreViews(courseid));
             return "scoreView";
         }
-        addActionMessage("查询失败！请联系管理员！");
+        this.setMsg("查询失败！请联系管理员！");
         return "scoreView";
     }
 }

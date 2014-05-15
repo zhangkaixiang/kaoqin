@@ -39,7 +39,13 @@ public class TaskDaoImpl implements TaskDao {
             util.closeSession(session);
         }
     }
-
+    public int getTeacherid(String sql){
+    	Session session = util.getSession();
+    	Query q = session.createSQLQuery(sql);	
+    	session.beginTransaction().commit();
+    	int teaid = ((Number)q.uniqueResult()).intValue();  
+    	return teaid;
+    }
     @SuppressWarnings({ "unchecked", "finally" })
 	public List<Task> queryList(String queryString) {
         Session session = util.getSession();

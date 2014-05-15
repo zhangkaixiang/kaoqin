@@ -29,6 +29,14 @@
         <script src="<%=request.getContextPath()%>/scripts/zebra_datepicker.js" type="text/javascript"></script>
         <link href="<%=request.getContextPath()%>/css/zebra_datepicker.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
+        $(document).ready(function() {
+    		var text = document.getElementById("showmsg").innerHTML;
+    		if (text == null || text == "") {
+
+    		} else {
+    			layer.alert(text, 1);
+    		}
+        });
             $(document).ready(function () {
                 // assuming the controls you want to attach the plugin to have the "datepicker" class set
                 $('input.datepicker').Zebra_DatePicker();
@@ -102,5 +110,6 @@
 
             </form>
         </div>
+        <div id="showmsg" style="height:15px;color:white;">${msg}</div>
     </body>
 </html>

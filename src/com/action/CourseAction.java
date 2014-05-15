@@ -34,8 +34,17 @@ public class CourseAction extends ActionSupport {
     private Course course;
     //班级id
     private int classid;
+private String msg;
 
-    public int getClassid() {
+    public String getMsg() {
+	return msg;
+}
+
+public void setMsg(String msg) {
+	this.msg = msg;
+}
+
+	public int getClassid() {
         return classid;
     }
 
@@ -100,21 +109,19 @@ public class CourseAction extends ActionSupport {
         for (Course cs : courseList) {
             //一个班级，一个老师教的课程名是唯一的。 但也有可能一个老师教多个班，课程名是一样的。所以只检查一个班级的某门课否有重名
             if (cs.getName().equals(getCourse().getName()) && cs.getTClass().getId().equals(tClass.getId())) {
-                addActionMessage("已存在同名课程，添加失败！");
+                this.setMsg("已存在同名课程，添加失败！");
                 return "prepareAdd";
             }
         }
 
-        Course c = getCourse();
-        System.out.println(c.getRemark()+"...."+c.getName()+"....fdsafdasfdsa");
-        
+        Course c = getCourse();       
         c.setTClass(tClass);
         c.setTeacher(teacher);
         c.setAttendNum(c.getAttendNum());
         c.setTaskNum(c.getTaskNum());
         if (courseService.save(c)) {
             ActionContext.getContext().getSession().put("currentClass", classService.allSClass());
-            addActionMessage("添加课程成功！");
+            this.setMsg("添加课程成功！");
             prepareAdd();
             return "prepareAdd";
         }
@@ -150,10 +157,10 @@ public class CourseAction extends ActionSupport {
         old.setRemark(getCourse().getRemark());
         old.setTaskNum(getCourse().getTaskNum());
         if (courseService.update(old)) {
-            addActionMessage("更新成功！");
+        	 this.setMsg("更新成功！");
             return "prepareModify";
         }
-        addActionMessage("更新失败");
+        this.setMsg("更新失败");
         return "prepareModify";
     }
     //删除
@@ -165,10 +172,10 @@ public class CourseAction extends ActionSupport {
         }
         Course currentCourse = courseService.load(csid);
         if (courseService.delete(currentCourse)) {
-            addActionMessage("删除成功！");
+        	 this.setMsg("删除成功！");
             return "delSuccess";
         }
-        addActionMessage("删除失败");
+        this.setMsg("删除失败");
         return "delSuccess";
     }
 }

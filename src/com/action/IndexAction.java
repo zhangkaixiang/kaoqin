@@ -272,7 +272,7 @@ public class IndexAction extends ActionSupport {
             while (it.hasNext()) {
                 Signrecord record = (Signrecord) it.next();
                 if (ServletActionContext.getRequest().getRemoteAddr().equals(record.getIp())) {
-                    addActionMessage("您的IP已存在该课程签到记录，请勿为他人代签，否则后果自负！");
+                	this.setMsg("您的IP已存在该课程签到记录，请勿为他人代签，否则后果自负！");
                     return "ipSame";
                 }
 
@@ -293,7 +293,7 @@ public class IndexAction extends ActionSupport {
             if (signRecordService.save(record)) {
                 addActionMessage(record.getSign().getCourse().getName() + "签到成功");
                 setMsg(record.getSign().getCourse().getName() + "签到成功");
-                System.out.println("签到成功");
+                System.out.println(record.getSign().getCourse().getName() + "签到成功");
                 return "signok";
             }
         }

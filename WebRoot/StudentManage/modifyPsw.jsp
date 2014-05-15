@@ -4,19 +4,29 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>修改密码</title>
+        <title>修改学生用户密码</title>
         <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
-    </head>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+</script>
+</head>
     <body>
+    <div style="width:100%;text-align:center;">
         <h1>修改密码</h1>
-        学生进入修改密码页面
-        系统列出三个文本框要求学生进行输入
-        原始密码，新密码，确认密码，确认。
-        验证通过，密码修改成功。
-        如果原密码输入错误，提示。
-        新密码确认输入错误则提示重新确认。
         <form action="stu!modifyPassword.action" name="form1">
-            <table>
+            <table style="margin:0 auto;" height="150";>
                 <tr>
                     <td>
                         原始密码：
@@ -41,14 +51,16 @@
                         <input type="password" name="confirmPsw"  />
                     </td>
                 </tr>
-                <tr>
-                    <td>
+                <tr >
+                    <td align="center" colspan="2">
                         <input  type="submit" />
+                        <input type="reset"/>
                     </td>
                 </tr>
             </table>
             
         </form>
-        <b style="color:red;"> <s:actionmessage /> </b>
+        </div>
+   <div id="showmsg" style="height:15px;color:white;">${msg}</div>
     </body>
 </html>

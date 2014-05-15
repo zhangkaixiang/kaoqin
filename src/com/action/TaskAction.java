@@ -36,7 +36,7 @@ public class TaskAction extends ActionSupport {
     private String content;
     private List<Course> courses;
     private List<Taskrecord> taskrecords;
-    private String message="提示：请点击查看按钮查询作业信息！";
+    private String message;
     public List<Taskrecord> getTaskrecords() {
         return taskrecords;
     }
@@ -121,7 +121,7 @@ public class TaskAction extends ActionSupport {
             tsk.setTeacher(teacher);
             tsk.setCourse(course);
             if (taskService.addTask(tsk)) {
-                addActionMessage("添加作业任务成功！");
+                this.setMessage("添加作业任务成功！");
                 return "prepareAdd";
             }
         }
@@ -206,7 +206,7 @@ public class TaskAction extends ActionSupport {
                 ActionContext.getContext().getSession().put("courses", cs);
                 return "stuAllTask";
             }
-            addActionMessage("没有搜索到作业！");
+            this.setMessage("没有搜索到作业！");
             return "stuAllTask";
         }
         return ERROR;
@@ -247,7 +247,6 @@ public class TaskAction extends ActionSupport {
             recordid = Integer.parseInt(ServletActionContext.getRequest().getParameter("recordid"));
         }
         String queryString = ServletActionContext.getRequest().getQueryString();
-        System.out.println(queryString);
         if (ActionContext.getContext().getSession().get("teacher") != null) {
             if (recordid != 0) {
                 Taskrecord rcd = taskrecordService.load(recordid);
@@ -255,7 +254,7 @@ public class TaskAction extends ActionSupport {
                 if (taskrecordService.update(rcd)) {
                     ServletActionContext.getResponse().getWriter().println("success");
                 } else {
-                    addActionMessage("sorry,操作失败！");
+                	 this.setMessage("sorry,操作失败！");
                 }
             }
         }

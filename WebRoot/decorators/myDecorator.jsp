@@ -32,8 +32,8 @@ body {
 
 #main {
 	font-size: 12px;
-	min-height: 80%;
-	_height: 380px;
+	min-height: 520px;
+	_height: 520px;/*80%*/
 	border: 1px solid #0A71B3;
 	border-top: none;
 	padding-left: 1%;
@@ -59,7 +59,8 @@ body {
 
 #nav {
 	background: url(<%=request.getContextPath()%>/images/bg_nav.gif )
-		repeat-x;
+	repeat-x;
+	min-height: 10%;
 	color: white;
 	left: 30px;
 	padding-left: 10px;
@@ -77,8 +78,8 @@ body {
 #webwidget_vertical_menu {
 	background-color: white;
 	border-bottom: 1px solid #0A71B3;
-	height: 490px;
-	_height: 430px;
+	min-height:460px; /*70.8%;*/
+	_height:500px;
 }
 
 #sideTop {
@@ -223,9 +224,9 @@ body {
 				src="<%=request.getContextPath()%>/images/nav_forward.gif" /><a
 				href="javascript:history.go(1);"><b>前进</b>
 			</a>
-			</span> <span><img
-				src="<%=request.getContextPath()%>/images/nav_resetPassword.gif" /><a
-				href="#"><b>修改密码</b>
+			</span> <span><img src="<%=request.getContextPath()%>/images/nav_resetPassword.gif" />
+	     <s:if test="#session.teacher.name!=null"> <a href="teacherinfo!preparModifyPsw.action"><b>修改密码</b></s:if>
+	     <s:if test="#session.student.name!=null"> <a href="stu!preparModifyPsw.action"><b>修改密码</b></s:if>
 			</a>
 			</span> <span><img
 				src="<%=request.getContextPath()%>/images/nav_print.gif" />
@@ -248,7 +249,7 @@ body {
 			导航： <img src="<%=request.getContextPath()%>/images/bg_left_tr.gif"
 				style="float:right;_float:none; _position: absolute; left: 19.7%; _z-index:1;   ">
 		</div>
-		<div id="webwidget_vertical_menu" class="webwidget_vertical_menu">
+		<div id="webwidget_vertical_menu" class="webwidget_vertical_menu" >
 			<ul>
 
 				<s:if test="#session.teacher!=null">

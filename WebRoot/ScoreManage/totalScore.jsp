@@ -10,11 +10,27 @@
             .doubleselect br { display:none;}
             td{ width: 120px; text-align: center;}
         </style>
+                <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+</script>
     </head>
     <body>
         <h1>学生总成绩查看</h1>
         总成绩计算规则：总成绩=考勤成绩+作业成绩。
-        <b style="color:red;"><s:actionmessage/></b>
+ 
         <form action="scoreManage!staticAllScore.action" name="form2" method="post">
             <div class="doubleselect">
                 统计：
@@ -45,6 +61,6 @@
                 </s:iterator>
             </table>
         </s:if>
-
+ <div id="showmsg" style="height:15px;color:white;">${msg}</div>
     </body>
 </html>

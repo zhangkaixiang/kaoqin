@@ -11,7 +11,7 @@
     <constant name="struts.custom.i18n.reources" value="mess"/>
     <constant name="struts.i18n.encoding" value="UTF-8" />
     <constant name="struts.devMode" value="false"/>
-    <package name="default" extends="struts-default,json-default">
+    <package name="default" extends="struts-default">
         <interceptors>
             <interceptor name="authority" class="com.interceptor.LoginInterceptor"></interceptor>
             <interceptor-stack name="mydefault">
@@ -36,7 +36,7 @@
         <action name="upload" class="com.action.UploadAction" >
             <interceptor-ref name="fileUpload">
                 <param name="allowedTypes">
-		application/msword 
+		
                 </param>
             </interceptor-ref>
             <interceptor-ref name="defaultStack"></interceptor-ref>
@@ -49,7 +49,7 @@
         <action name="index" class="com.action.IndexAction" >
             <result name="success">main.jsp</result>
             <result name="notIn">main.jsp</result>
-            <result name="signok" type="redirectAction">index.action</result>
+            <result name="signok" type="chain">index</result>
             <result name="signed">main.jsp</result>
             <result name="ipSame">main.jsp</result>
         </action>
@@ -87,11 +87,14 @@
             <result name="modify">/StudentManage/modifyPsw.jsp</result>
             <result name="sInfo">/StudentManage/info.jsp</result>
         </action>
-                    <!-- 教师信息管理 -->
+           <!-- 教师信息管理 -->
         <action name="teacherinfo" class="com.action.TeacherInfoAction" >
             <result name="success">/TeacherManage/showAllTeacher.jsp</result>
-            <result name="modify">/StudentManage/modifyPsw.jsp</result>
+            <result name="modify">/TeacherManage/modifyPsw.jsp</result>
             <result name="tqx" type="redirectAction">teacherinfo.action</result>
+        </action>  
+          <!-- 教师消息管理 -->
+        <action name="readnotice" class="com.action.NoticeAction" >
         </action>    
             <!-- 时间设置管理 -->
         <action name="timeManage" class="com.action.SignSettingeAction" >

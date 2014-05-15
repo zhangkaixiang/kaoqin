@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/kaoqin</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">root</property>
-    <property name="show_sql">ture</property>
-    <mapping resource="com/orm/Score.hbm.xml"/>
-    <mapping resource="com/orm/Teacher.hbm.xml"/>
-    <mapping resource="com/orm/Student.hbm.xml"/>
-    <mapping resource="com/orm/Course.hbm.xml"/>
-    <mapping resource="com/orm/TClass.hbm.xml"/>
-    <mapping resource="com/orm/Taskrecord.hbm.xml"/>
-    <mapping resource="com/orm/Signrecord.hbm.xml"/>
-    <mapping resource="com/orm/Task.hbm.xml"/>
-    <mapping resource="com/orm/Sign.hbm.xml"/>
-  </session-factory>
+	<session-factory>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.MySQLDialect
+		</property>
+		<property name="hibernate.connection.driver_class">
+			com.mysql.jdbc.Driver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:mysql://localhost:3306/kaoqin
+		</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<property name="show_sql">ture</property>
+		<mapping resource="com/orm/Score.hbm.xml" />
+		<mapping resource="com/orm/Teacher.hbm.xml" />
+		<mapping resource="com/orm/Student.hbm.xml" />
+		<mapping resource="com/orm/Course.hbm.xml" />
+		<mapping resource="com/orm/TClass.hbm.xml" />
+		<mapping resource="com/orm/Taskrecord.hbm.xml" />
+		<mapping resource="com/orm/Signrecord.hbm.xml" />
+		<mapping resource="com/orm/Task.hbm.xml" />
+		<mapping resource="com/orm/Sign.hbm.xml" />
+		<mapping resource="com/orm/Notice.hbm.xml" />
+	</session-factory>
 </hibernate-configuration>

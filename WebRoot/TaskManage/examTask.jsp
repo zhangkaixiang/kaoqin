@@ -7,6 +7,10 @@
         <title>审批作业</title>
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/font.css" />
         <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+                      <script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
         <script type="text/javascript">
         $(function(){
         	var len=$("#tb").find("tr").length;
@@ -30,6 +34,15 @@
                 var tds =tbs.getElementsByTagName("td");
                 tds[2].style.display='none';
             }
+        	$(function() {
+        		var text = document.getElementById("showmsg").innerHTML;
+        		if (text == null || text == "") {
+
+        		} else {
+        			layer.alert(text, 1);
+        		}
+
+        	});
         </script>
     </head>
     <body>
@@ -61,7 +74,8 @@
     </div>
 </s:if>
 <s:else>
- <h2><strong><span style="color:#E53333;"><s:property value="message"/></span></strong></h2>
+
 </s:else>
+<div id="showmsg" style="height:15px;color:white;">${message}</div>
 </body>
 </html>

@@ -27,6 +27,7 @@ public class TClassAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private List<TClass> allClasses;
     private TClass classes;
+    private String msg;
     TClassService classesService = new TClassServiceImpl();
     
     //getter setter ...
@@ -35,7 +36,15 @@ public class TClassAction extends ActionSupport {
         return allClasses;
     }
 
-    public void setAllClasses(List<TClass> allClasses) {
+    public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public void setAllClasses(List<TClass> allClasses) {
         this.allClasses = allClasses;
     }
 
@@ -72,7 +81,7 @@ public class TClassAction extends ActionSupport {
             cls.setRxnf(getClasses().getRxnf());
             classesService.addClasses(cls);
             ActionContext.getContext().getSession().put("currentClass", classesService.allSClass());
-            addActionMessage("班级添加成功！");
+            this.setMsg("班级添加成功！");
             return "addSuccess";
         } catch (Exception e) {
             return ERROR;
@@ -109,10 +118,10 @@ public class TClassAction extends ActionSupport {
          old.setRxnf(getClasses().getRxnf());
          old.setStuNum(getClasses().getStuNum());
          if (classesService.updateClasses(old)) {
-             addActionMessage("更新成功！");
+        	 this.setMsg("更新成功！");
              return "prepareModify";
          }
-         addActionMessage("更新失败");
+         this.setMsg("更新失败");
          return "prepareModify";
     }
     //删除
@@ -124,10 +133,10 @@ public class TClassAction extends ActionSupport {
            }
            TClass currentClass = classesService.load(csid);
            if (classesService.delete(currentClass)) {
-               addActionMessage("删除成功！");
+        	   this.setMsg("删除成功！");
                return "delSuccess";
            }
-           addActionMessage("删除失败");
+           this.setMsg("删除失败");
            return "delSuccess";
     }
     

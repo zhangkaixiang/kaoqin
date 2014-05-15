@@ -31,9 +31,23 @@
             {
                 if (confirm("您确认要删除吗？\n如果该规则已经包含了签到记录，则会自动成为失效规则\n如果没有包含签到记录，则会完全删除！！")) {
                     return true;
-                }
+                }else
                 return false;
             }
+            $(document).ready(function () {
+                // assuming the controls you want to attach the plugin to have the "datepicker" class set
+                $('input.datepicker').Zebra_DatePicker();
+                $('#chooseDate').Zebra_DatePicker();
+                var myDate = new Date();
+                var year=myDate.getFullYear();    //获取完整的年份(4位)
+                var month=myDate.getMonth()+1; 
+                if(month<10)
+                	month="0"+month;
+                //获取当前月份(0-11,0代表1月)
+                var day=myDate.getDate(); 
+                $('#chooseDate').val(year+"-"+month+"-"+day);
+            });
+
         </script>
     </head>
     <body>
@@ -162,7 +176,9 @@
                     <table>
                         <caption>周期性签到规则</caption>
                         <th>班级名称</th> <th>课程名称</th><th>开始时间</th><th>结束时间</th><th>星期</th> <th>操作</th>
-                        <s:iterator value="signsByWeek" id="row" >
+                       
+                        <s:iterator value="signsByWeek" id="row" status="sta">
+                    
                             <tr>
                                 <td>
                                     <s:property value="#row.course.TClass.className" />
@@ -184,6 +200,7 @@
                                     <a onclick="return doconfirm()" href="timeManage!prepareDelete.action?signid=<s:property value="#row.id"/>">删除</a>
                                 </td>
                             </tr>
+                     
                         </s:iterator>
                     </table>
                 </div>

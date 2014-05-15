@@ -9,11 +9,27 @@
             .doubleselect br { display:none;}
         </style>
            <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+                   <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+</script>
     </head>
     <body>
            <h1>学生上交作业成绩查看</h1>
            作业成绩计算规则：作业合格记一分，作业不合格记零分，每门课程作业成绩累计相加即为作业成绩。
-        <b style="color:red;"><s:actionmessage/></b>
+      
         <form action="scoreManage!staticTaskScore.action" name="form2" method="post">
             <div class="doubleselect">
                 请选择课程：
@@ -43,5 +59,6 @@
                 </s:iterator>
             </table>
         </s:if>
+        <div id="showmsg" style="height:15px;color:white;">${msg}</div>
     </body>
 </html>

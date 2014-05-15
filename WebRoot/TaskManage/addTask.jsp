@@ -11,6 +11,21 @@
             .doubleselect br { display:none;}
             table{ font-size: 12px; }
         </style>
+               <script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+	</script>
           <script type="text/javascript" src="<%=request.getContextPath() %>/ckeditor_3.6.2/ckeditor/ckeditor.js"></script>  
     </head>
     <body>
@@ -48,5 +63,6 @@
                 filebrowserWindowHeight : 500
             });
         </script>
+        <div id="showmsg" style="height:15px;color:white;">${message}</div>
     </body>
 </html>

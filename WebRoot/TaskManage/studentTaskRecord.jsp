@@ -61,7 +61,7 @@
         <div id="result">
         <h3>查询结果：</h3>
         <table id="tb">
-            <th>作业名称</th><th>学号</th><th>姓名</th><th>上交作业名称</th><th>上交时间</th><th>下载</th><th>操作</th>
+            <th>作业名称</th><th>学号</th><th>姓名</th><th>上交作业名称</th><th>上交时间</th><th>在线查看</th><th>操作</th>
             <s:iterator value="taskrecords" id="row">
                 <tr>
                     <td><s:property value="#row.task.name" /></td>

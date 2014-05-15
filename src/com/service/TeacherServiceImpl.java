@@ -72,4 +72,15 @@ public class TeacherServiceImpl implements TeacherService {
 			bool=true;
 		return bool;
 	}
+    public boolean update(Teacher teacher) {
+        try 
+        {
+            dao.update(teacher);
+            return true;
+        } catch (Exception e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -61,7 +61,6 @@ public class OfficeToSwf {
 		if(!swfFile.exists()){
 			if(pdfFile.exists()) {
 				try {
-					System.out.print(url + pdfFile.getPath() + " -o " + swfFile.getPath() + " -T 9");
 					Process p = r.exec(url+"/tool/pdf2swf.exe " + pdfFile.getPath() + " -o " + swfFile.getPath() + " -T 9");
 					//重要！缓冲区，没有该代码会偶尔出现swf无法转换
 					BufferedReader bufferedReader =new BufferedReader(new InputStreamReader(p.getInputStream()));

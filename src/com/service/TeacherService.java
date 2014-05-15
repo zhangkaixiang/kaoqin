@@ -3,6 +3,7 @@ package com.service;
 
 import java.util.List;
 
+import com.orm.Student;
 import com.orm.Teacher;
 
  
@@ -22,4 +23,6 @@ public interface TeacherService {
     public List<Teacher> loadAllTeacher();
     //更新教师权限
     public boolean updateTeacherQx(Teacher teacher);
+    //修改教师密码
+    public boolean update(Teacher teacher) ;
 }

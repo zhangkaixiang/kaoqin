@@ -24,10 +24,6 @@ import com.util.MD5;
 
 public class ImportTeacherAction extends ActionSupport{
 	//服务
-
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	TeacherService teacherService = new TeacherServiceImpl();
     //班级

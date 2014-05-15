@@ -6,10 +6,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>上交作业</title>
         <script src="<%=request.getContextPath()%>/scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+	</script>
     </head>
     <body>
         <h1>上交作业</h1>
         <div>
+        <h5><strong><span style="color:#E53333;">温馨提示：您可以上传的文件类型可以为以下几种类型,否则0分哦！<br/>&nbsp;&nbsp;&nbsp;&nbsp;doc/docx/ppt/pptx/xls/xlsx/pdf</span></strong></h5>
             <s:url action="../upload.action" id="target">
                 <s:param name="taskid"><%=request.getParameter("taskid")%> </s:param>
             </s:url>
@@ -21,6 +37,6 @@
             <input type="submit" value="上传"/>
         </s:form>
     </div>
-    <s:actionmessage/>
+   <div id="showmsg" style="height:15px;color:white;">${msg}</div>
 </body>
 </html>

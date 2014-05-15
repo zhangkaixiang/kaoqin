@@ -19,21 +19,26 @@
             ul a.selected { background-color:#183257;   }
             h4 b { color: red;}
         </style>
-        <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="scripts/jquery.idTabs.min.js"></script>
-        <script type="text/javascript" src="scripts/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="scripts/layer.min.js"></script>
+        <script src="<%=request.getContextPath()%>/scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery.idTabs.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
         <script type="text/javascript">
-				function signOk(){
-					layer.alert('签到成功！', 8);
-					
-				}
+$(function(){
+ var text= document.getElementById("showmsg").innerHTML;
+ if(text==null||text==""){
+	 
+ }else{
+	  layer.alert(text,1);
+ }
+
+});
         </script>
     </head>
     <body>
 <iframe width="300" scrolling="no" height="25" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=10&bdc=%23&icon=1"></iframe>
-<strong><span style="color:#E53333;font-size:15px;">通知：</span><marquee behavior="scroll" onmouseover=this.stop() onmouseout=this.start() width=200 height=13 direction="left" scrollamount="2">这里是公告内容这里是公告内容这里是公告内容</marquee></strong>
-        <div style="margin-left:18%; font-size: 14px; ">
+<%--<strong><span style="color:#E53333;font-size:15px;">通知：</span><marquee behavior="scroll" onmouseover=this.stop() onmouseout=this.start() width=200 height=13 direction="left" scrollamount="2">这里是公告内容这里是公告内容这里是公告内容</marquee></strong>
+        --%><div style="margin-left:18%; font-size: 14px; ">
 
             <br/>
             <h4> 今日： 已签到 <b ><s:property value="#attr.num.signedNum" /></b> 节   
@@ -45,12 +50,10 @@
 
                 共缺课 <b style="color:red;"> <s:property value="#attr.num.lostSignedTotalNum" /> </b>节<br/>
             </h4>
-            <s:if test="hasActionMessages()">
-                <h4>
-                    <b style="color:red;"><s:actionmessage/></b>
-                </h4>
+             <div id="showmsg" style="height:15px;color:white;">${msg}</div>
+            <%--<s:if test="#msg!=''">
             </s:if>
-            <div id="navTab" style="margin-top:20px;"> 
+            --%><div id="navTab" style="margin-top:20px;"> 
                 <ul class="idTabs"> 
                     <li class="selected"><a href="#unsigned">待签到</a></li> 
                     <li style="width:1px; background-color: white; height: 14px;"></li>
@@ -90,8 +93,9 @@
                                 <td>
                                     <s:property value="#row.course.name"/> &nbsp;&nbsp;</td>
 
-                                <td>  <s:property value="#row.startTime" />至<s:property value="#row.endTime" /> </td>
-                                <td> <a href="index!signIn.action?sid=<s:property value="#row.id" />" onclick="signOk()">我要签到</a></td>
+                                <td>  <s:property value="#row.startTime" /></td>
+                                <td><s:property value="#row.endTime" /> </td>
+                                <td> &nbsp;&nbsp;<a href="index!signIn.action?sid=<s:property value="#row.id" />" onclick="signOk()">我要签到</a></td>
                             </tr>
                         </s:iterator>
                     </table>

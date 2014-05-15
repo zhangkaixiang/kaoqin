@@ -7,16 +7,27 @@
         <title>作业管理</title>
         <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/font.css" />
         <script src="scripts/jquery-1.6.2.min.js" type="text/javascript"></script>
+                       <script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+	</script>
         <style type="text/css">
             .doubleselect br { display:none;}
             td{ text-align:center; width: 150px; font-size: 12px;}
         </style>
     </head>
     <body>
-        教师进入作业管理页面，先选择TA教的某个班的某门课。
-        系统会列出该课的所有作业名称。
-        可以点击详细进行作业内容详细的查看。
-        可以点击进行上传。
         <div>
             <form action="taskManage!search.action" name="form1">
                 <div class="doubleselect">
@@ -45,9 +56,7 @@
             </div>
         </s:if>
         <s:else>
-      <div>
-      <h2><strong><span style="color:#E53333;"><s:property value="message"/></span></strong></h2>
-      </div>
        </s:else>
+       <div id="showmsg" style="height:15px;color:white;">${message}</div>
     </body>
 </html>

@@ -5,7 +5,8 @@ import java.util.List;
 
 public interface TaskDao {
     
-    
+	//根据任务id查询教师id
+	public int getTeacherid(String sql);
     //加载一个课程
 
     public Task load(int id);

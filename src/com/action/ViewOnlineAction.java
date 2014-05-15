@@ -51,7 +51,6 @@ import com.util.OfficeToSwf;
 		setFileName(fileName.substring(0, fileName.lastIndexOf(".")));
 		request.getSession().setAttribute("swfName", fileName);
 		setFileExt(prefix);
-	    System.out.println(prefix);
 		OfficeToSwf toswf=new OfficeToSwf();
 		try {
 			System.out.println(toswf.ToSwf(url, fileName, fileExt));

@@ -11,7 +11,7 @@ public interface CourseDao {
     //保存一个课程
     public void save(Course course);
 
-    //根据条件查询s
+    //根据条件查询
     public List<Course> queryList(String queryString);
 
     public void update(Course course);

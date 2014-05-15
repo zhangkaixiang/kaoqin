@@ -41,6 +41,21 @@ public class TaskServiceImpl implements TaskService {
        return dao.load(taskid);
     }
 
-  
+    public int getTeacherid(int taskid){
+    	String sql="select task.teacherid from Task as task where task.id='"+taskid+"'"; 
+    	return dao.getTeacherid(sql);
+    } 
     
+    public static void main(String args[]){
+    	TaskServiceImpl no=new TaskServiceImpl();
+    /*	TeacherServiceImpl teacherService=new TeacherServiceImpl();
+    	Teacher teacher=teacherService.loadTeacher(1);
+    	no.saveMsg(1, teacher);
+    	no.havaRead(1,teacher);
+    	if(no.waitRead(teacher)){
+    		System.out.print("no");
+    	}else
+    		System.out.print("ok");*/
+   /*	System.out.print(no.getTeacherid(10));*/
+    }
 }

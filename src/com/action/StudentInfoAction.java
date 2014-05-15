@@ -8,6 +8,8 @@ import com.service.StudentService;
 import com.service.StudentServiceImpl;
 import com.service.TClassService;
 import com.service.TClassServiceImpl;
+import com.util.MD5;
+
 import java.util.List;
 import java.util.Set;
 import org.apache.struts2.ServletActionContext;
@@ -32,12 +34,20 @@ public class StudentInfoAction extends ActionSupport {
     private String newPsw;
     private String confirmPsw;
     private Student student;
-
+    private String msg;
     public Student getStudent() {
         return student;
     }
 
-    public void setStudent(Student student) {
+    public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public void setStudent(Student student) {
         this.student = student;
     }
 
@@ -46,7 +56,7 @@ public class StudentInfoAction extends ActionSupport {
     }
 
     public void setConfirmPsw(String confirmPsw) {
-        this.confirmPsw = confirmPsw;
+        this.confirmPsw = MD5.MD5(confirmPsw);
     }
 
     public String getNewPsw() {
@@ -54,7 +64,7 @@ public class StudentInfoAction extends ActionSupport {
     }
 
     public void setNewPsw(String newPsw) {
-        this.newPsw = newPsw;
+        this.newPsw = MD5.MD5(newPsw);
     }
 
     public String getOldPsw() {
@@ -62,7 +72,7 @@ public class StudentInfoAction extends ActionSupport {
     }
 
     public void setOldPsw(String oldPsw) {
-        this.oldPsw = oldPsw;
+        this.oldPsw = MD5.MD5(oldPsw);
     }
 
     public TClass getCurrentClass() {
@@ -118,20 +128,20 @@ public class StudentInfoAction extends ActionSupport {
             Student stu = studentService.loadStudent(st.getId());
             //验证 
             if (!getOldPsw().equals(stu.getPassword())) {
-                addActionMessage("旧密码输入不正确。");
+                this.setMsg("旧密码输入不正确。");
                 return "modify";
             }
             if (!getNewPsw().equals(getConfirmPsw())) {
-                addActionMessage("新密码和确认密码不一致");
+            	this.setMsg("新密码和确认密码不一致");
                 return "modify";
             }
             if ("".equals(getNewPsw()) || getNewPsw() == null) {
-                addActionMessage("输入不能为空！");
+            	this.setMsg("输入不能为空！");
                 return "modify";
             }
             stu.setPassword(getNewPsw());
             if (studentService.update(stu)) {
-                addActionMessage("修改密码成功！");
+            	this.setMsg("修改密码成功！");
                 return "modify";
             }
         }

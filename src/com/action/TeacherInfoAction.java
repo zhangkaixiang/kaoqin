@@ -11,6 +11,7 @@ import com.orm.TClass;
 import com.orm.Teacher;
 import com.service.TeacherService;
 import com.service.TeacherServiceImpl;
+import com.util.MD5;
 
 public class TeacherInfoAction extends ActionSupport{
 	
@@ -18,11 +19,24 @@ public class TeacherInfoAction extends ActionSupport{
     //旧密码，新密码，确认密码
     private String oldPsw;
     private String newPsw;
-    private List<Teacher> allteaher;
+    private String confirmPsw;
+    private String msg;
+	private List<Teacher> allteaher;
     private int id;
     private int qx;
     
-
+    public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getConfirmPsw() {
+		return confirmPsw;
+	}
+	public void setConfirmPsw(String confirmPsw) {
+		this.confirmPsw = MD5.MD5(confirmPsw);
+	}
 	public int getId() {
 		return id;
 	}
@@ -45,13 +59,13 @@ public class TeacherInfoAction extends ActionSupport{
 		return oldPsw;
 	}
 	public void setOldPsw(String oldPsw) {
-		this.oldPsw = oldPsw;
+		this.oldPsw = MD5.MD5(oldPsw);
 	}
 	public String getNewPsw() {
 		return newPsw;
 	}
 	public void setNewPsw(String newPsw) {
-		this.newPsw = newPsw;
+		this.newPsw = MD5.MD5(newPsw);
 	}
     public String execute() throws Exception {
     List<Teacher> list=teacherService.loadAllTeacher();
@@ -65,6 +79,36 @@ public class TeacherInfoAction extends ActionSupport{
     		return "tqx";
     	else
     		return ERROR;
+    }
+    public String preparModifyPsw() throws Exception {
+        return "modify";
+    }
+    public String modifyPassword(){
+        if (ActionContext.getContext().getSession().get("teacher") != null) {
+            Teacher st = (Teacher) ActionContext.getContext().getSession().get("teacher");
+
+            Teacher tea = teacherService.loadTeacher(st.getId());
+            //验证 
+            if (!getOldPsw().equals(tea.getPassword())) {
+                this.setMsg("旧密码输入不正确。");
+                return "modify";
+            }
+            if (!getNewPsw().equals(this.getConfirmPsw())) {
+            	 this.setMsg("新密码和确认密码不一致");
+                return "modify";
+            }
+            if ("".equals(getNewPsw()) || getNewPsw() == null) {
+            	 this.setMsg("输入不能为空！");
+                return "modify";
+            }
+            tea.setPassword(getNewPsw());
+            if (teacherService.update(tea)) {
+            	 this.setMsg("修改密码成功！");
+                return "modify";
+            }
+        }
+        return ERROR;
+    	
     }
     
 }

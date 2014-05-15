@@ -9,11 +9,26 @@
         <style type="text/css">
             .doubleselect br { display:none;}
         </style>
+        <script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/scripts/layer.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		var text = document.getElementById("showmsg").innerHTML;
+		if (text == null || text == "") {
+
+		} else {
+			layer.alert(text, 1);
+		}
+
+	});
+</script>
     </head>
     <body>
         <h1>学生考勤成绩查看</h1>
         考勤成绩计算规则：签到成功记一分，未签到记零分，每门课程考勤成绩累计相加即为考勤成绩。
-        <b style="color:red;"><s:actionmessage/></b>
+     
         <form action="scoreManage!staticScore.action" name="form2" method="post">
             <div class="doubleselect">
                 请选择课程：
@@ -43,5 +58,6 @@
                 </s:iterator>
             </table>
         </s:if>
+        <div id="showmsg" style="height:15px;color:white;">${msg}</div>
     </body>
 </html>

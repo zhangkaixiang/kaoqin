@@ -8,20 +8,51 @@
 <script type="text/javascript" src="scripts/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="scripts/layer.min.js"></script>
 <script type="text/javascript">
-function img(image,mes){
+/*function img(image,mes){
 	  layer.tips(mes,image, {
 	    guide: 2,
 	    maxWidth:240,
-		time:3,
+		time:3
 		});
 	 }
 function over(mes){
 	  layer.tips(mes, document.getElementById("image"), {
 	    guide: 2,
 	    maxWidth:240,
-		closeBtn:[0,true]
 	  });
+}*/
+
+	 $(function(){
+		 $.post("readnotice!waitRead.action",function(data){
+			if(data==="wait"){
+				$("#imagediv").css("display","block");
+				$("#imagediv").click(function(){
+						layer.alert("有学生上传了作业，请您尽快批改！",1,"新消息",function(index){
+							$.post("readnotice!havaRead.action");
+							$("#newico").css("display","none");
+							layer.close(index);
+						});
+					});
+			}else if(data==="read"){
+				$("#imagediv").click(function(){
+					layer.alert("没有新消息！",3,"提醒",function(index){
+						$.post("readnotice!havaRead.action");
+						$("#newico").css("display","none");
+						layer.close(index);
+					});
+					});
+			}
+		 });
+	 });
+$(function(){
+	 var text= document.getElementById("showmsg").innerHTML;
+	 if(text==null||text==""){
+		 
+	 }else{
+		  layer.alert(text,3);
 	 }
+
+	});
 </script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/font.css" />
 <style type="text/css">
@@ -57,8 +88,9 @@ br {
 	<div style="float:left;margin-left:10px;"><iframe width="300" scrolling="no" height="25" frameborder="0"
 		allowtransparency="true"
 		src="http://i.tianqi.com/index.php?c=code&id=10&bdc=%23&icon=1"></iframe></div>
-		<div style="float:left;margin-left:55px;"><strong><span style="color:#E53333;font-size:15px;">通知：</span><marquee behavior="scroll" onmouseover=this.stop() onmouseout=this.start() width=200 height=13 direction="left" scrollamount="2">今天下午三点在会议室开会！</marquee></strong>
-		</div><div style="float:right;margin-right:200px;"><img id="image" onmouseover="over('有学生上传了作业，请尽快批改！')" src="images/mail.png" width="30" height="25" border="0" alt="mail" onload="img(this,'您收到一条新通知！')" /></div>
+	 <!--  <div style="float:left;margin-left:55px;"><strong><span style="color:#E53333;font-size:15px;">通知：</span><marquee behavior="scroll" onmouseover=this.stop() onmouseout=this.start() width=200 height=13 direction="left" scrollamount="2">今天下午三点在会议室开会！</marquee></strong>-->
+
+		<div id="imagediv" style="float:right;margin-right:200px;display:none;"><div id="newico"><img id="newimg"  src="images/new.gif" width="25" height="20" border="0" style="margin-left:3px;"/>您收到一条新消息！</div></div> 
 </div>	
 	<div style="margin-left:5%;">
 		<div id="myWeather"></div>
@@ -137,8 +169,7 @@ br {
 					<a href="tindex!viewSignDraw.action?signid=<s:property value="getSignid"/> ">查看统计报表</a>
 				</s:if>
 				<s:elseif test="records.size()<=0">
-					<b style="color:red;font-size:15px;">暂无记录！
-					上课情况只有在考勤结束并由系统统计完成后才能查看！</b>
+				 <div id="showmsg" style="height:15px;color:white;">暂无记录！上课情况只有在考勤结束并由系统统计完成后才能查看！</div>
 				</s:elseif>
 			</div>
 		</s:if>

@@ -5,10 +5,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>查看班级信息</title>
+        <script type="text/javascript" src="scripts/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="scripts/layer.min.js"></script>
          <script type="text/javascript">
              function confrimDel()
              {
-                 if (confirm("您没有删除班级信息的权限！")) {
+                 if (layer.alert("您没有删除班级信息的权限！",3)) {
                     return true;
                 } 
                 return false;
